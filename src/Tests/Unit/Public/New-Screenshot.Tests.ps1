@@ -8,7 +8,7 @@ BeforeDiscovery {
 }
 
 InModuleScope 'Screenshot' {
-    Describe 'Get-HelloWorld Public Function Tests' -Tag Unit {
+    Describe 'New-Screenshot Public Function Tests' -Tag Unit {
         BeforeAll {
             $WarningPreference = 'SilentlyContinue'
             $ErrorActionPreference = 'SilentlyContinue'
@@ -23,16 +23,16 @@ InModuleScope 'Screenshot' {
         Context 'Success' {
 
             BeforeEach {
-                Mock -CommandName Get-Day -MockWith {
-                    'Friday'
-                } #endMock
+                #Mock -CommandName Get-Day -MockWith {
+                #    'Friday'
+                #} #endMock
             } #beforeEach
 
             It 'should return the expected results' {
-                Get-HelloWorld | Should -BeExactly 'Hello, happy Friday World!'
+                New-Screenshot | Should -BeLike '*Screenshot_*.jpg'
             } #it
 
         } #context_Success
-    } #describe_Get-HelloWorld
+    } #describe_New-Screenshot
 } #inModule
 
