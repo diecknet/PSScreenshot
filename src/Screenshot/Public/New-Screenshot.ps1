@@ -1,5 +1,5 @@
 function New-Screenshot {
-<#
+    <#
 .SYNOPSIS
 Captures a screenshot and saves it as a JPEG file.
 
@@ -51,7 +51,7 @@ Returns the saved screenshot file when successful.
 .NOTES
 Supports -WhatIf and -Confirm via ShouldProcess.
 #>
-    [CmdletBinding(DefaultParameterSetName = 'Coordinates',SupportsShouldProcess=$true)]
+    [CmdletBinding(DefaultParameterSetName = 'Coordinates', SupportsShouldProcess = $true)]
     param(
         [Parameter(ParameterSetName = 'Coordinates', Position = 0)]
         [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 0)]
@@ -78,19 +78,19 @@ Supports -WhatIf and -Confirm via ShouldProcess.
         [string]$FileName = "Screenshot_{0}.jpg" -f (Get-Date -Format "yyyyMMdd_HHmmss")
     )
 
-    Add-Type -AssemblyName System.Windows.Forms,System.Drawing
+    Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 
     switch ($PSCmdlet.ParameterSetName) {
         "Coordinates" {
-            if($Width -eq 0) {
+            if ($Width -eq 0) {
                 $Width = [System.Windows.Forms.SystemInformation]::VirtualScreen.Width
-                if($X -gt 0) {
+                if ($X -gt 0) {
                     $Width = $Width - $X
                 }
             }
-            if($Height -eq 0) {
+            if ($Height -eq 0) {
                 $Height = [System.Windows.Forms.SystemInformation]::VirtualScreen.Height
-                if($Y -gt 0) {
+                if ($Y -gt 0) {
                     $Height = $Height - $Y
                 }
             }
