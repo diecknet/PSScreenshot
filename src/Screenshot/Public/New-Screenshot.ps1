@@ -1,9 +1,11 @@
 function New-Screenshot {
-    [CmdletBinding(DefaultParameterSetName = 'Coordinates')]
+    [CmdletBinding(DefaultParameterSetName = 'Coordinates',SupportsShouldProcess=$true)]
     param(
         [Parameter(ParameterSetName = 'Coordinates', Position = 0)]
+        [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 0)]
         [int]$X = 0,
         [Parameter(ParameterSetName = 'Coordinates', Position = 1)]
+        [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 1)]
         [int]$Y = 0,
         [Parameter(ParameterSetName = 'Coordinates', Position = 2)]
         [int]$Width,
@@ -11,9 +13,17 @@ function New-Screenshot {
         [int]$Height,
 
         [Parameter(ParameterSetName = 'WindowTitle', Position = 0)]
-        [string]$WindowTitle
+        [string]$WindowTitle,
 
-        # todo: add path
+        [Parameter(ParameterSetName = 'WindowTitle', Position = 1)]
+        [Parameter(ParameterSetName = 'Coordinates', Position = 4)]
+        [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 2)]
+        [string]$Path = (Get-Location),
+
+        [Parameter(ParameterSetName = 'WindowTitle', Position = 2)]
+        [Parameter(ParameterSetName = 'Coordinates', Position = 5)]
+        [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 3)]
+        [string]$FileName = "Screenshot_{0}.jpg" -f (Get-Date -Format "yyyyMMdd_HHmmss")
     )
 
     Add-Type -AssemblyName System.Windows.Forms,System.Drawing
@@ -47,5 +57,9 @@ function New-Screenshot {
     $Bitmap = [System.Drawing.Bitmap]::new($Width, $Height)
     $Graphic = [System.Drawing.Graphics]::FromImage($bitmap)
     $Graphic.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($Width, $Height))
-    $Bitmap.Save("C:\temp\Screenshots\Screenshot_$(Get-Date -Format 'yyyyMMdd_HHmmss').jpg", [System.Drawing.Imaging.ImageFormat]::Jpeg)
+
+    $DestinationPath = Join-Path -Path $Path -ChildPath $FileName
+    if ($PSCmdlet.ShouldProcess($DestinationPath, ("Saving Screenshot to path: '{0}'" -f $DestinationPath))) {
+        $Bitmap.Save($DestinationPath, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+    }
 }
