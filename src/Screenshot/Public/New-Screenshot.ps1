@@ -1,4 +1,56 @@
 function New-Screenshot {
+<#
+.SYNOPSIS
+Captures a screenshot and saves it as a JPEG file.
+
+.DESCRIPTION
+New-Screenshot captures either a screen region by coordinates or a window by title,
+then saves the image to the specified path and file name.
+
+.PARAMETER X
+The X coordinate of the upper-left corner of the capture area (optional).
+
+.PARAMETER Y
+The Y coordinate of the upper-left corner of the capture area (optional).
+
+.PARAMETER Width
+The width of the capture area (optional).
+
+.PARAMETER Height
+The height of the capture area (optional).
+
+.PARAMETER WindowTitle
+The title of the window to capture when using the WindowTitle parameter set (optional).
+
+.PARAMETER Path
+The directory where the screenshot will be saved. Defaults to the current location.
+
+.PARAMETER FileName
+The output file name. Defaults to Screenshot_yyyyMMdd_HHmmss.jpg.
+
+.EXAMPLE
+New-Screenshot
+
+Captures the full virtual screen and saves it to the current directory.
+
+.EXAMPLE
+New-Screenshot -X 100 -Y 100 -Width 800 -Height 600 -Path C:\Temp -FileName region.jpg
+
+Captures a region starting at (100,100) with size 800x600 and saves it to C:\Temp\region.jpg.
+
+.EXAMPLE
+New-Screenshot -WindowTitle "Notepad" -Path C:\Temp
+
+Captures the Notepad window and saves it to C:\Temp using the default file name.
+
+.OUTPUTS
+System.IO.FileInfo
+
+Returns the saved screenshot file when successful.
+
+.NOTES
+Supports -WhatIf and -Confirm via ShouldProcess.
+#>
     [CmdletBinding(DefaultParameterSetName = 'Coordinates',SupportsShouldProcess=$true)]
     param(
         [Parameter(ParameterSetName = 'Coordinates', Position = 0)]
