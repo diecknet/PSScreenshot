@@ -47,5 +47,3 @@ function New-Screenshot {
     $Graphic.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($Width, $Height))
     $Bitmap.Save("C:\temp\Screenshots\Screenshot_$(Get-Date -Format 'yyyyMMdd_HHmmss').jpg", [System.Drawing.Imaging.ImageFormat]::Jpeg)
 }
-
-New-Screenshot
