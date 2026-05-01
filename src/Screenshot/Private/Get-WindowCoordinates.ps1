@@ -7,7 +7,7 @@ function Get-WindowCoordinates {
 
     $ProcessHandle = [Window]::FindWindowByCaption($WindowTitle)
     $Rectangle = [Rect]::New()
-    if([Window]::GetWindowRect($ProcessHandle, [ref]$Rectangle)) {
+    if ([Window]::GetWindowRect($ProcessHandle, [ref]$Rectangle)) {
         return $Rectangle
     } else {
         throw "Failed to get window coordinates for '$WindowTitle'."
