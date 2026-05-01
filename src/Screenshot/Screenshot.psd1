@@ -98,10 +98,10 @@ PrivateData = @{
         # Tags = @()
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/diecknet/PSScreenshot/blob/main/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/diecknet/PSScreenshot'
 
         # A URL to an icon representing this module.
         # IconUri = ''
