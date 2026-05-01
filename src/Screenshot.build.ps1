@@ -50,7 +50,7 @@ $str = @()
 $str = 'Clean', 'ValidateRequirements', 'ImportModuleManifest'
 $str += 'FormattingCheck'
 $str += 'Analyze', 'Test'
-$str += 'CreateHelpStart'
+# $str += 'CreateHelpStart'
 $str2 = $str
 $str2 += 'Build', 'Archive'
 $str += 'Build', 'IntegrationTest', 'Archive'
@@ -345,6 +345,8 @@ Add-BuildTask CreateMarkdownHelp -After CreateHelpStart {
         FwLink         = "NA"
         HelpVersion    = $script:ModuleVersion
     }
+
+    Import-Module $script:ModuleManifestFile
 
     Write-Build Gray '           Generating markdown files...'
     $null = New-MarkdownHelp @markdownParams
