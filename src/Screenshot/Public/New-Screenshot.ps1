@@ -60,6 +60,11 @@ function New-Screenshot {
 
     $DestinationPath = Join-Path -Path $Path -ChildPath $FileName
     if ($PSCmdlet.ShouldProcess($DestinationPath, ("Saving Screenshot to path: '{0}'" -f $DestinationPath))) {
-        $Bitmap.Save($DestinationPath, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+        try {
+            $Bitmap.Save($DestinationPath, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+            Get-Item -Path $DestinationPath
+        } catch {
+            throw "Failed to save screenshot to path: '{0}'. Error: {1}" -f $DestinationPath, $_.Exception.Message
+        }
     }
 }
