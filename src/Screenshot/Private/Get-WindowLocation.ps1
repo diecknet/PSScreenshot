@@ -1,4 +1,4 @@
-function Get-WindowCoordinates {
+function Get-WindowLocation {
     [CmdletBinding()]
     param(
         [Parameter(Position = 0, Mandatory = $true)]

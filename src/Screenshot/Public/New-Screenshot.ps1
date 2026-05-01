@@ -12,6 +12,8 @@ function New-Screenshot {
 
         [Parameter(ParameterSetName = 'WindowTitle', Position = 0)]
         [string]$WindowTitle
+
+        # todo: add path
     )
 
     Add-Type -AssemblyName System.Windows.Forms,System.Drawing
@@ -33,7 +35,7 @@ function New-Screenshot {
             break
         }
         "WindowTitle" {
-            $Coordinates = Get-WindowCoordinates -WindowTitle $WindowTitle
+            $Coordinates = Get-WindowLocation -WindowTitle $WindowTitle
             $X = $Coordinates.Left
             $Y = $Coordinates.Top
             $Width = $Coordinates.Right - $Coordinates.Left
