@@ -17,10 +17,7 @@ jobs:
         id: psmodulecache
         uses: potatoqualitee/psmodulecache@ee5e9494714abf56f6efbfa51527b2aec5c761b8
         with:
-          modules-to-cache:
-            - BuildHelpers
-            - InvokeBuild
-            - Microsoft.PowerShell.PSResourceGet
+          modules-to-cache: BuildHelpers, InvokeBuild, Microsoft.PowerShell.PSResourceGet
 
       - shell: pwsh
         # Give an id to the step, so we can reference it later
