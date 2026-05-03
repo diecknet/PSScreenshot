@@ -36,7 +36,7 @@ jobs:
 
       - name: Build module
         shell: pwsh
-        run: Invoke-Build -File .\src\Screenshot.build.ps1 -Task Build
+        run: Invoke-Build -File .\src\Screenshot.build.ps1 -Task Clean,Build
 
       - name: Publish to PSGallery
         shell: pwsh
