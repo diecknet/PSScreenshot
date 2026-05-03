@@ -17,7 +17,11 @@ jobs:
         id: psmodulecache
         uses: potatoqualitee/psmodulecache@ee5e9494714abf56f6efbfa51527b2aec5c761b8
         with:
-          modules-to-cache: BuildHelpers
+          modules-to-cache:
+            - BuildHelpers
+            - InvokeBuild
+            - Microsoft.PowerShell.PSResourceGet
+
       - shell: pwsh
         # Give an id to the step, so we can reference it later
         id: check_if_versions_bumped
@@ -28,11 +32,6 @@ jobs:
 
           # Set the output named "version_bumped"
           Write-Output "version_bumped=$bumped" >> $ENV:GITHUB_OUTPUT
-
-      - name: Install InvokeBuild module
-        shell: pwsh
-        if: steps.check_if_versions_bumped.outputs.version_bumped == 'True'
-        run: Install-Module -Name InvokeBuild -Scope CurrentUser -Force
 
       - name: Build module
         shell: pwsh
