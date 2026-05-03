@@ -13,14 +13,13 @@ $itemSplat = @{
 try {
     $public = @(Get-ChildItem -Path "$PSScriptRoot\Public" @itemSplat)
     $private = @(Get-ChildItem -Path "$PSScriptRoot\Private" @itemSplat)
-    $classes = @(Get-ChildItem -Path "$PSScriptRoot\Classes" @itemSplat)
 } catch {
     Write-Error $_
-    throw 'Unable to get get file information from Public/Private/Classes src.'
+    throw 'Unable to get get file information from Public/Private src.'
 }
 
 # dot source all .ps1 file(s) found
-foreach ($file in @($public + $private + $classes)) {
+foreach ($file in @($public + $private)) {
     try {
         . $file.FullName
     } catch {
