@@ -4,8 +4,8 @@ on:
     branches:
       - main
     paths-ignore:
-      - '*.md'
-      - 'docs/**'
+      - "*.md"
+      - "docs/**"
   workflow_dispatch:
 jobs:
   build:
