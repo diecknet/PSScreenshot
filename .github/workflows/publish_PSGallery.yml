@@ -42,4 +42,4 @@ jobs:
         shell: pwsh
         env:
           PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
-        run: Publish-Module -Path .\src\Artifacts\Screenshot.psd1 -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery
+        run: Publish-PSResource -Path .\src\Artifacts\ -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery
