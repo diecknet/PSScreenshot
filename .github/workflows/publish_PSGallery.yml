@@ -29,9 +29,13 @@ jobs:
           # Set the output named "version_bumped"
           Write-Output "version_bumped=$bumped" >> $ENV:GITHUB_OUTPUT
 
-      - name: Build module
+      - name: Install InvokeBuild module
         shell: pwsh
         if: steps.check_if_versions_bumped.outputs.version_bumped == 'True'
+        run: Install-Module -Name InvokeBuild -Scope CurrentUser -Force
+
+      - name: Build module
+        shell: pwsh
         run: Invoke-Build -File .\src\Screenshot.build.ps1 -Task Build
 
       - name: Publish to PSGallery
