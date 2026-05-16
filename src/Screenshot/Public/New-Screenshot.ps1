@@ -111,13 +111,13 @@ Supports -WhatIf and -Confirm via ShouldProcess.
     $Graphic.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($Width, $Height))
 
     #region Screenshot Destination Path
-    if([string]::IsNullOrEmpty($Path)) {
+    if ([string]::IsNullOrEmpty($Path)) {
         $Path = Get-Location
         # Fallback to TEMP if current location is root of C:\ and user is not admin to avoid "Access Denied" error
         # not really necessary, but the previous behavior annoyed me lol
-        if( $Path.ToString() -eq "C:\" -and
+        if ( $Path.ToString() -eq "C:\" -and
             ([Security.Principal.WindowsIdentity]::GetCurrent().Groups -notcontains 'S-1-5-32-544')) {
-                $Path = $env:TEMP
+            $Path = $env:TEMP
         }
     }
     $DestinationPath = Join-Path -Path $Path -ChildPath $FileName
