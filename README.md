@@ -63,7 +63,7 @@ New-Screenshot -WindowTitle "Calculator"
 #### Example 4
 
 ```powershell
-# Take a screenshot of al screens and specify the filename
+# Take a screenshot of all screens and specify the filename
 New-Screenshot -FileName "MyCoolScreenshot.jpg"
 ```
 
