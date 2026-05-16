@@ -12,7 +12,7 @@
 RootModule = 'Screenshot.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -21,10 +21,10 @@ ModuleVersion = '0.0.1'
 GUID = '7b8eb409-b3a7-4929-83d9-c2d9859f12a3'
 
 # Author of this module
-Author = 'diecknet'
+Author = 'Andreas Dieckmann'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'diecknet'
 
 # Copyright statement for this module
 Copyright = '(c) diecknet. All rights reserved.'
