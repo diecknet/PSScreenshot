@@ -70,7 +70,7 @@ Supports -WhatIf and -Confirm via ShouldProcess.
         [Parameter(ParameterSetName = 'WindowTitle', Position = 1)]
         [Parameter(ParameterSetName = 'Coordinates', Position = 4)]
         [Parameter(ParameterSetName = 'CoordinatesWithSize', Position = 2)]
-        [string]$Path = (Get-Location),
+        [string]$Path,
 
         [Parameter(ParameterSetName = 'WindowTitle', Position = 2)]
         [Parameter(ParameterSetName = 'Coordinates', Position = 5)]
@@ -110,7 +110,20 @@ Supports -WhatIf and -Confirm via ShouldProcess.
     $Graphic = [System.Drawing.Graphics]::FromImage($bitmap)
     $Graphic.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($Width, $Height))
 
+    #region Screenshot Destination Path
+    if([string]::IsNullOrEmpty($Path)) {
+        $Path = Get-Location
+        # Fallback to TEMP if current location is root of C:\ and user is not admin to avoid "Access Denied" error
+        # not really necessary, but the previous behavior annoyed me lol
+        if( $Path.ToString() -eq "C:\" -and
+            ([Security.Principal.WindowsIdentity]::GetCurrent().Groups -notcontains 'S-1-5-32-544')) {
+                $Path = $env:TEMP
+        }
+    }
     $DestinationPath = Join-Path -Path $Path -ChildPath $FileName
+    #endregion Screenshot Destination Path
+
+    #region Save Screenshot
     if ($PSCmdlet.ShouldProcess($DestinationPath, ("Saving Screenshot to path: '{0}'" -f $DestinationPath))) {
         try {
             $Bitmap.Save($DestinationPath, [System.Drawing.Imaging.ImageFormat]::Jpeg)
@@ -119,4 +132,5 @@ Supports -WhatIf and -Confirm via ShouldProcess.
             throw "Failed to save screenshot to path: '{0}'. Error: {1}" -f $DestinationPath, $_.Exception.Message
         }
     }
+    #endregion Save Screenshot
 }
