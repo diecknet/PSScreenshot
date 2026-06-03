@@ -80,6 +80,10 @@ Supports -WhatIf and -Confirm via ShouldProcess.
 
     Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 
+    # Ensure coordinates and dimensions are reported in physical pixels when a
+    # screen scaling factor (e.g. 200%) is used. See issue #3.
+    Set-DPIAware
+
     switch ($PSCmdlet.ParameterSetName) {
         "Coordinates" {
             if ($Width -eq 0) {
