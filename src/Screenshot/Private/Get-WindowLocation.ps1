@@ -95,20 +95,20 @@ function Get-WindowLocation {
 "@
 
     # Fast path: exact match via FindWindow.
-    $ProcessHandle = [Screenshot.Window]::FindWindowByCaption($WindowTitle)
+    $WindowHandle = [Screenshot.Window]::FindWindowByCaption($WindowTitle)
 
     # Fallback: enumerate visible windows for an exact or partial title match.
     # Handles modern (UWP-hosted) windows such as the Windows 11 Notepad.
-    if ($ProcessHandle -eq [IntPtr]::Zero) {
-        $ProcessHandle = [Screenshot.Window]::FindWindowByPartialCaption($WindowTitle)
+    if ($WindowHandle -eq [IntPtr]::Zero) {
+        $WindowHandle = [Screenshot.Window]::FindWindowByPartialCaption($WindowTitle)
     }
 
-    if ($ProcessHandle -eq [IntPtr]::Zero) {
+    if ($WindowHandle -eq [IntPtr]::Zero) {
         throw "Failed to find a window with the title '$WindowTitle'."
     }
 
     $Rectangle = [Screenshot.RECT]::New()
-    if ([Screenshot.Window]::GetWindowRect($ProcessHandle, [ref]$Rectangle)) {
+    if ([Screenshot.Window]::GetWindowRect($WindowHandle, [ref]$Rectangle)) {
         return $Rectangle
     } else {
         throw "Failed to get window coordinates for '$WindowTitle'."
