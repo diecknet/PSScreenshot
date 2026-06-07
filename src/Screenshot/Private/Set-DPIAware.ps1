@@ -19,6 +19,7 @@ None
 Only has an effect on Windows.
 #>
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
     param()
 
     # DPI awareness is a Windows-only concept.
